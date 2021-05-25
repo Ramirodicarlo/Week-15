@@ -37,18 +37,35 @@ class CatalogPage extends Page {
     //Description div
     get description () { return $$(".inventory_item_desc")}
 
+    //Price div
+    get price () {return $$(".inventory_item_price")}
+
     //Cart
     get cart () { return $(".shopping_cart_link")}
     get spanCart () { return $(".shopping_cart_badge")}
 
-    //Burgen button
+    //Burger button
     get btnBurger () { return $("#react-burger-menu-btn")}
     get btnBurgerClose () { return $("#react-burger-cross-btn")}
-    get burgerMenu () { return $(".bm-menu-wrap")}
     get linkAllItems () { return $("#inventory_sidebar_link")}
     get linkAbout () { return $("#about_sidebar_link")}
     get linkLogout () { return $("#logout_sidebar_link")}
     get linkReset () { return $("#reset_sidebar_link")}
+
+    //Selctor for order items
+    get selector () { return $(".product_sort_container")}
+
+    // Social media
+    get twitter () { return $(".social_twitter > a")}
+    get facebook () { return $(".social_facebook > a")}
+    get linkedin () { return $(".social_linkedin > a")}
+
+    //Items details section
+    get imgItemDetail () { return $(".inventory_details_img")}
+    get titleItem () { return $(".inventory_details_name.large_size")}
+    get itemDescription () { return $(".inventory_details_desc.large_size")}
+    get itemPrice () { return $(".inventory_details_price")}
+    get btnBack () { return $("#back-to-products")}
 
     open () {
         return super.open();
