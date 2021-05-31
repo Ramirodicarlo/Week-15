@@ -1,0 +1,77 @@
+const loginPage = require("../pageobjects/login.page.js")
+const catalogPage = require("../pageobjects/catalog.page.js")
+const cartPage = require("../pageobjects/cart.page.js")
+
+//Log in and add items to cart
+
+
+describe("Cart tests", () => {
+    beforeEach(() =>{  
+        loginPage.open()
+        loginPage.username.setValue("standard_user")
+        loginPage.password.setValue("secret_sauce")
+        loginPage.submit()
+        catalogPage.btnItem0.click()
+        catalogPage.btnItem1.click()
+        catalogPage.btnItem2.click()
+        catalogPage.cart.click()
+    }) 
+    it("Remove items from cart", () =>{
+        expect(catalogPage.spanCart).toHaveText("3")
+        expect(cartPage.quantity[2]).toExist()
+        catalogPage.removeItem0.click()
+        expect(catalogPage.spanCart).toHaveText("2")
+        expect(cartPage.quantity[2]).not.toExist()
+        catalogPage.removeItem1.click()
+        expect(catalogPage.spanCart).toHaveText("1")
+        expect(cartPage.quantity[1]).not.toExist()
+        catalogPage.removeItem2.click()
+        expect(cartPage.quantity[0]).not.toExist()
+    })
+    it("Try buttons", () => {
+        cartPage.btnContinue.isExisting()
+        cartPage.checkout.isExisting()
+        cartPage.btnContinue.click()
+        expect(browser).toHaveUrl("https://www.saucedemo.com/inventory.html")
+        catalogPage.cart.click()
+        cartPage.checkout.click()
+        expect(browser).toHaveUrl("https://www.saucedemo.com/checkout-step-one.html")
+        cartPage.cancelCheck.click()
+    })
+
+})
+describe("Checkout tests", () => {
+    it("Validate inputs", () => {
+        cartPage.firstName.isExisting()
+        cartPage.lastName.isExisting()
+        cartPage.zipCode.isExisting()
+    })
+    it("Checkout", () => {
+        cartPage.checkout.click()
+        cartPage.firstName.setValue("Ramiro")   
+        cartPage.lastName.setValue("Di Carlo")
+        cartPage.zipCode.setValue("2000")
+        cartPage.continueCheck.click()
+        cartPage.checkInfoLabel[0].isExisting()
+        expect(cartPage.checkInfoLabel[0]).toHaveText("Payment Information:")
+        cartPage.checkValueLabel[0].isExisting()
+        expect(cartPage.checkValueLabel[0]).toHaveText("SauceCard #31337") 
+        cartPage.checkInfoLabel[1].isExisting()
+        expect(cartPage.checkInfoLabel[1]).toHaveText("Shipping Information:")
+        cartPage.checkValueLabel[1].isExisting()
+        expect(cartPage.checkValueLabel[1]).toHaveText("FREE PONY EXPRESS DELIVERY!") 
+        for(x=0; x < 2;x++){
+            catalogPage.description[x].isExisting()
+            catalogPage.price[x].isExisting()
+        }
+        catalogPage.item0.isExisting()
+        catalogPage.item1.isExisting()
+        catalogPage.item2.isExisting()
+        cartPage.subtotalLabel.isExisting()
+        expect(cartPage.subtotalLabel).toHaveText("Item total: $"+"33.97")
+        cartPage.totalTaxLabel.isExisting()
+        expect(cartPage.totalTaxLabel).toHaveText("Tax: $"+"2.72")
+        cartPage.totalLabel.isExisting()
+        expect(cartPage.totalLabel).toHaveText("Total: $"+"36.69")
+    })
+})

@@ -1,14 +1,13 @@
 const loginPage = require("../pageobjects/login.page.js")
 const catalogPage = require("../pageobjects/catalog.page.js")
-
-describe("Test for catalog",() =>{
-    //Log In
+//Log In
     beforeAll(() =>{  
         loginPage.open()
         loginPage.username.setValue("standard_user")
         loginPage.password.setValue("secret_sauce")
         loginPage.submit()
     })
+describe("Test for catalog",() =>{  
     describe("Validation of items and his elements", () =>{
         it("Sauce Labs Backpack", () =>{
             catalogPage.item4.isExisting()
