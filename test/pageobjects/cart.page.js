@@ -17,6 +17,7 @@ class CartPage extends Page {
     get totalTaxLabel () { return $(".summary_tax_label")}
     get totalLabel () { return $(".summary_total_label")}
     get finishBtn () { return $("#finish")}
+    get finishText () { return $(".complete-header")}
 }
 
 module.exports = new CartPage();

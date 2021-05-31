@@ -1,0 +1,22 @@
+const loginPage = require("../pageobjects/login.page.js")
+const catalogPage = require("../pageobjects/catalog.page.js")
+const cartPage = require("../pageobjects/cart.page.js")
+
+describe("Test end to end", () => {
+    it("All steps together", () =>{
+        loginPage.open()
+        loginPage.username.setValue("standard_user")
+        loginPage.password.setValue("secret_sauce")
+        loginPage.submit()
+        catalogPage.btnItem0.click()
+        catalogPage.btnItem1.click()
+        catalogPage.btnItem2.click()
+        catalogPage.cart.click()
+        cartPage.checkout.click()
+        cartPage.firstName.setValue("Ramiro")   
+        cartPage.lastName.setValue("Di Carlo")
+        cartPage.zipCode.setValue("2000")
+        cartPage.continueCheck.click()
+        cartPage.finishBtn.click()
+    })
+}) 

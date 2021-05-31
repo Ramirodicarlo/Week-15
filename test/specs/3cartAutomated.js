@@ -73,5 +73,7 @@ describe("Checkout tests", () => {
         expect(cartPage.totalTaxLabel).toHaveText("Tax: $"+"2.72")
         cartPage.totalLabel.isExisting()
         expect(cartPage.totalLabel).toHaveText("Total: $"+"36.69")
+        cartPage.finishBtn.click()
+        expect(cartPage.finishText).toHaveText("THANK YOU FOR YOUR ORDER")
     })
 })
